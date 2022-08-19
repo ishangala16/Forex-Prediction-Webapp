@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Prediction</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/index.css') }}">
+
+</head>
+
+<body>
+  <div class="loader-screen" id="loader">
+    <div class="container">
+      <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <div class="login-screen" id="login-screen">
+    <div class="login-form">
+      <p>Forex Prediction using Machine Learning</p>
+      <input type="text" id="email" class="login-input" placeholder="Email Id">
+      <input type="password" id="password" class="login-input" placeholder="Password">
+      <div class="options-tab">
+        <button class="submit-btn" onclick="logIn()">Log In</button>
+        <button class="submit-link" onclick="signUp()">Or create my account</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-container">
+    <form action="/" method="post">
+      <select name="currecy_one" id="currecy_one">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="AUD">AUD</option>
+        <option value="NOK">NOK</option>
+        <option value="INR">INR</option>
+      </select>
+      <select name="currecy_two" id="currecy_two">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="AUD">AUD</option>
+        <option value="NOK">NOK</option>
+        <option value="INR">INR</option>
+      </select>
+      <input type="submit" value="Submit" id="loader-start" class="submit-btn" onclick="displayLoader()">
+    </form>
+    <button class="submit-btn" onclick="logOut()">Log out</button>
+  </div>
+  {% if graphJSON %}
+  <div class="flex-container">
+
+    <!-- {{df}} -->
+    <div>
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Price</th>
+        </tr>
+        {% for row in df%}
+        <tr>
+          {% for element in row %}
+          <td>{{element}}</td>
+          {%endfor%}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div id='chart' class='chart'>
+    </div>
+  </div>
+
+  {%endif%}
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbUCWKVeYHfauLTDhBS6ROJSWivdRAlXo",
+      authDomain: "forex-prediction-53a42.firebaseapp.com",
+      projectId: "forex-prediction-53a42",
+      storageBucket: "forex-prediction-53a42.appspot.com",
+      messagingSenderId: "1079813925687",
+      appId: "1:1079813925687:web:3553105a505b7e245508b2",
+      measurementId: "G-Y40S58VRJL"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+
+    // Constants 
+    const loginScreen = document.getElementById("login-screen");
+    const loader = document.getElementById("loader");
+    const loadBtn = document.getElementById("loader-start");
+
+
+    // Create an account 
+
+    function signUp() {
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in 
+          var user = userCredential.user;
+          loginScreen.style.display = "none";
+          alert("User Created!");
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorMessage);
+          // ..
+        });
+    }
+
+    // Log into existing account
+
+    function logIn() {
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          var user = userCredential.user;
+          loginScreen.style.display = "none";
+          alert("User Logged In!");
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+    }
+
+    // Log out of account
+
+    function logOut() {
+      firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        alert("User Logged Out!");
+        let email = document.getElementById("email").value;
+        email = "";
+        let password = document.getElementById("password").value;
+        password = "";
+        loginScreen.style.display = "flex";
+      }).catch((error) => {
+        // An error happened.
+        alert("An error occured!");
+      });
+    }
+
+    // Display Loader 
+    
+    function displayLoader(){
+      loader.style.display = "flex";
+      window.addEventListener("load", e => {
+        loader.style.display = "none";
+      })
+    }
+
+
+  </script>
+
+  <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+  <script type='text/javascript'>
+
+    var graphs = {{ graphJSON | safe}};
+    Plotly.plot('chart', graphs, {});
+
+    // check if user is logged in
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        var uid = user.uid;
+        loginScreen.style.display = "none";
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+
+  </script>
+
+
+</body>
+
+
+</html>
