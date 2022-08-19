@@ -9,6 +9,7 @@ Cython==0.29.32
 ephem==4.1.3
 Flask==2.2.2
 fonttools==4.36.0
+gunicorn==20.1.0
 hijri-converter==2.2.4
 holidays==0.14.2
 idna==3.3
