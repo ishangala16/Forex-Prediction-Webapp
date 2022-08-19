@@ -2,10 +2,16 @@
 
 This project is based on price prediction of currecy pairs. It is used to forecast price of the currency pair based on previous data. This can be used to forecast price for the next 10 days.
 
+## Test the app: Heroku 
+
+```
+https://forex-prediction-ishan.herokuapp.com/
+```
+
 ## Setup
 ### 1. Clone the repository first using this command
 ```
-git clone 
+git clone https://github.com/ishangala16/forex-prediction.git
 ```
 
 ### 2. Install dependencies 
@@ -17,7 +23,7 @@ pip install -r requirements.txt
 
 Run in terminal
 ```
-python gunicorn --bind 0.0.0.0:5000 server:app
+python gunicorn --bind 0.0.0.0:5000 wsgi:app
 ```
 
 Open browser and type
