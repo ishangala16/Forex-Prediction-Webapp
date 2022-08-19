@@ -19,7 +19,7 @@ def forex():
         
         #prediction(currency_one,currency_two)
         
-        filename = f'./static/csv/{datetime.date.today()}_{currency_one}_{currency_two}.csv'
+        filename = f'./app/static/csv/{datetime.date.today()}_{currency_one}_{currency_two}.csv'
         if os.path.exists(filename):
             final_df = pd.read_csv(filename)
             fig = go.Figure()
