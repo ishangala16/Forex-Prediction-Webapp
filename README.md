@@ -5,7 +5,7 @@ This project is based on price prediction of currecy pairs. It is used to foreca
 ## Test the app: Heroku 
 
 
-[https://forex-prediction-ishan.herokuapp.com/](https://forex-prediction-ishan.herokuapp.com/)
+[https://forex-price-predicition.herokuapp.com/](https://forex-price-predicition.herokuapp.com/)
 
 
 ## Setup
