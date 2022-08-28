@@ -1,1 +1,1 @@
-web: gunicorn wsgi:app --timeout 10
+web: gunicorn --workers=3 wsgi:app --timeout 40
