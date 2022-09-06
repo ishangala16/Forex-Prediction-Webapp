@@ -36,6 +36,13 @@
       </div>
     </div>
   </div>
+  <div class="header">
+    <div class="logo">
+      <img src="{{ url_for('static',filename='images/Logo.png') }}" alt="Code">
+    </div>
+    <div class="logout">
+    </div>
+  </div>
   <div class="form-container">
     <form action="/" method="post">
       <select name="currecy_one" id="currecy_one">
@@ -165,8 +172,8 @@
     }
 
     // Display Loader 
-    
-    function displayLoader(){
+
+    function displayLoader() {
       loader.style.display = "flex";
       window.addEventListener("load", e => {
         loader.style.display = "none";
@@ -193,7 +200,8 @@
         // ...
       } else {
         // User is signed out
-        // ...
+        // ...uid = user.uid;
+        loginScreen.style.display = "flex";
       }
     });
 
