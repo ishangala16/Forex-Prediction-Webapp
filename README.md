@@ -2,11 +2,6 @@
 
 This project is based on price prediction of currecy pairs. It is used to forecast price of the currency pair based on previous data. This can be used to forecast price for the next 10 days.
 
-## Test the app: Heroku 
-
-
-[https://forex-price-predicition.herokuapp.com/](https://forex-price-predicition.herokuapp.com/)
-
 
 ## Setup
 ### 1. Clone the repository first using this command

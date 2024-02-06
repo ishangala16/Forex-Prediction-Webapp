@@ -82,5 +82,6 @@ def forex():
         return render_template('home.html',graphJSON=graphJSON,df = final_list)
     return render_template('home.html')
     
+    
 
 
